@@ -37,6 +37,9 @@ export default function LoginView() {
                 </button>
             </div>
             <div className="text-center">
+                <Link href={"/auth/forgot-password"} className="text-blue-500 text-sm inline-block mb-1">
+                    Recuperar contraseña
+                </Link>
                 <p className="text-sm">
                     ¿No tienes cuenta?{" "}
                     <Link href={"/auth/register"} className="text-blue-500">

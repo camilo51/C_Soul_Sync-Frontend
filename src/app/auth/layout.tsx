@@ -1,11 +1,10 @@
-import type { Metadata } from "next";
 import { Vend_Sans, Oswald } from "next/font/google";
 import "@/app/globals.css";
 import { ArrowLeftIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 
 export const vendSans = Vend_Sans({
-  variable: "--font-vend-sans",
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
