@@ -2,7 +2,7 @@ import RegisterView from "@/features/auth/RegisterForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Registrarse | C-Soul Sync",
+  title: "Registrarse",
 };
 
 export default function Register() {
