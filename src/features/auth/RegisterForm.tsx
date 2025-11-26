@@ -114,7 +114,7 @@ export default function RegisterView() {
                 <button
                     type="submit"
                     className="w-full bg-yellow-500 hover:bg-yellow-400 hover:outline-1 outline-transparent hover:outline-yellow-500 text-black text-lg font-bold py-2 px-4 rounded mt-4 uppercase hover:cursor-pointer transition-all duration-300"
-                    onClick={(e) => handleSubmit(e)}
+                    onClick={handleSubmit}
                 >
                     Crear Cuenta
                 </button>

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { AuthContextType, ErrorType, LoginUserType, RegisterUserType, SuccessType, UserType } from "@/types";
-import { RegisterUser } from "@/services/authService";
+import { RegisterUser, LoginUser, LogoutUser } from "@/services/authService";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
@@ -24,8 +24,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, [user]);
 
-    const register = async ({ name, email, password, confirmPassword }: RegisterUserType) => {
-        const response: SuccessType | ErrorType = await RegisterUser({ name, email, password, confirmPassword });
+    const handleAuthResponse = (response: SuccessType | ErrorType) => {
         if(!response.success){
             toast.error(response.message);
             return;
@@ -34,11 +33,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(response.data.user as UserType);
         router.push("/");
     }
+
+    const register = async ({ name, email, password, confirmPassword }: RegisterUserType) => {
+        const response: SuccessType | ErrorType = await RegisterUser({ name, email, password, confirmPassword });
+        handleAuthResponse(response);
+    }
     const login = async ({ email, password }: LoginUserType) => {
-        console.log("Login function to be implemented");
+        const response: SuccessType | ErrorType = await LoginUser({ email, password });
+        handleAuthResponse(response);
     }
 
-    const logout = () => {
+    const logout = async () => {
+        const response: SuccessType | ErrorType = await LogoutUser();
+
+        if (!response.success) {
+            toast.error(response.message);
+            return; 
+        }
+
+        localStorage.removeItem('user');
         setUser(null);
         router.push("/login");
     }
