@@ -1,7 +1,8 @@
 import "@/app/globals.css";
-import { vendSans } from "@/lib/fonts";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { vendSans, oswald } from "@/lib/fonts";
 import type { Metadata } from "next";
-import { oswald } from "./(main)/layout";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: {
@@ -20,7 +21,10 @@ export default function RootLayout({
       <body
         className={`${vendSans.variable} ${oswald.variable}`}
       >
-        {children}
+        <ToastContainer /> 
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

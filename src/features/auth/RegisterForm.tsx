@@ -1,26 +1,35 @@
 "use client";
 
 import Form from "@/components/Auth/Form";
+import { useAuthContext } from "@/contexts/AuthContext";
+import { RegisterUser } from "@/services/authService";
+import { RegisterUserType, RegisterUserFormType } from "@/types";
 import Link from "next/link";
 import { useState } from "react";
 
-interface User {
-    name: string;
-    lastname: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
-
 export default function RegisterView() {
-    const defaultUser: User = {
+
+    const {register} = useAuthContext();
+
+    const defaultUser: RegisterUserFormType = {
         name: "",
         lastname: "",
         email: "",
         password: "",
         confirmPassword: "",
     };
-    const [user, setUser] = useState<User>(defaultUser);
+    const [user, setUser] = useState<RegisterUserFormType>(defaultUser);
+
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        const formatedUser: RegisterUserType = {
+            name: `${user.name} ${user.lastname}`,
+            email: user.email,
+            password: user.password,
+            confirmPassword: user.confirmPassword,
+        }
+        await register(formatedUser);
+    }
 
     return (
         <Form title="Registrarse">
@@ -105,6 +114,7 @@ export default function RegisterView() {
                 <button
                     type="submit"
                     className="w-full bg-yellow-500 hover:bg-yellow-400 hover:outline-1 outline-transparent hover:outline-yellow-500 text-black text-lg font-bold py-2 px-4 rounded mt-4 uppercase hover:cursor-pointer transition-all duration-300"
+                    onClick={(e) => handleSubmit(e)}
                 >
                     Crear Cuenta
                 </button>
