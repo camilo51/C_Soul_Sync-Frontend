@@ -3,7 +3,7 @@
 import Form from "@/components/Auth/Form";
 import Link from "next/link";
 
-export default function LoginView() {
+export default function LoginForm() {
     return (
         <Form title="Ingresar">
             <div className="mb-2">
@@ -28,6 +28,9 @@ export default function LoginView() {
                     className="w-full focus:outline-1 focus:outline-yellow-200 border border-gray-200 rounded p-2"
                 />
             </div>
+            <Link href={"/auth/forgot-password"} className="text-sm inline-block mb-1 underline">
+                Recuperar contraseña
+            </Link>
             <div className="mb-5">
                 <button
                     type="submit"
@@ -37,12 +40,9 @@ export default function LoginView() {
                 </button>
             </div>
             <div className="text-center">
-                <Link href={"/auth/forgot-password"} className="text-blue-500 text-sm inline-block mb-1">
-                    Recuperar contraseña
-                </Link>
                 <p className="text-sm">
                     ¿No tienes cuenta?{" "}
-                    <Link href={"/auth/register"} className="text-blue-500">
+                    <Link href={"/register"} className="text-blue-500">
                         Ir a registrarse
                     </Link>
                 </p>
