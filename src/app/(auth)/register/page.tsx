@@ -1,4 +1,4 @@
-import RegisterView from "@/views/auth/RegisterView";
+import RegisterView from "@/features/auth/RegisterForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

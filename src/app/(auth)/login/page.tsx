@@ -1,11 +1,10 @@
-import LoginView from "@/views/auth/LoginView";
+import LoginForm from "@/features/auth/LoginForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ingresar | C-Soul Sync",
+  title: "Ingresar",
 };
 
-
 export default function Login() {
-  return <LoginView />;
+  return <LoginForm />;
 }

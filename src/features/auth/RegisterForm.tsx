@@ -112,7 +112,7 @@ export default function RegisterView() {
             <div className="text-center">
                 <p className="text-sm">
                     ¿Ya tienes una cuenta?{" "}
-                    <Link href={"/auth/login"} className="text-blue-500">
+                    <Link href={"/login"} className="text-blue-500">
                         Ir a iniciar sesión
                     </Link>
                 </p>

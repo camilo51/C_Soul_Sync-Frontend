@@ -1,4 +1,6 @@
-import { oswald } from "@/app/auth/layout";
+'use client'
+
+import { oswald } from "@/lib/fonts";
 
 interface FormProps {
     title: string;
