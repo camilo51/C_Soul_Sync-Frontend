@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${vendSans.variable} ${oswald.variable}`}
+        className={`${vendSans.className} ${oswald.variable} bg-gray-100`}
       >
         <ToastContainer /> 
         <AuthProvider>
