@@ -10,19 +10,22 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
-    const [user, setUser] = useState<UserType | null>(() => {
-        if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem('user');
-            return saved ? JSON.parse(saved) : null;
-        }
-        return null;
-    });
+    const [user, setUser] = useState<UserType | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
+    useEffect(() => {
+        const saved = localStorage.getItem('user');
+        if (saved) {
+            setUser(JSON.parse(saved));
+        }
+        setLoading(false);
+    }, []);
     useEffect(() => {
         if (user) {
             localStorage.setItem('user', JSON.stringify(user));
         }
     }, [user]);
+
 
     const handleAuthResponse = (response: SuccessType | ErrorType) => {
         if(!response.success){
@@ -51,12 +54,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             return; 
         }
 
+        router.push("/login");
         localStorage.removeItem('user');
         setUser(null);
-        router.push("/login");
     }
 
-    return <AuthContext.Provider value={{ user, register, login, logout }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ user, loading, register, login, logout }}>{children}</AuthContext.Provider>;
 }
 
 export const useAuthContext = () => {

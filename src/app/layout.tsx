@@ -3,6 +3,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { vendSans, oswald } from "@/lib/fonts";
 import type { Metadata } from "next";
 import { ToastContainer } from "react-toastify";
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export const metadata: Metadata = {
   title: {
@@ -19,11 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${vendSans.className} ${oswald.variable} bg-gray-100`}
+        className={`${vendSans.className} ${oswald.variable} bg-gray-950 text-white`}
       >
         <ToastContainer /> 
         <AuthProvider>
-          {children}
+            {children}
         </AuthProvider>
       </body>
     </html>
