@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { AuthContextType, ErrorType, LoginUserType, RegisterUserType, SuccessType, UserType } from "@/types";
+import { AuthContextType, ErrorType, LoginUserType, RegisterUserType, SuccessType, UserType } from "../../../types";
 import { RegisterUser, LoginUser, LogoutUser } from "@/services/authService";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 
     const handleAuthResponse = (response: SuccessType | ErrorType) => {
-        if(!response.success){
+        if (!response.success) {
             toast.error(response.message);
             return;
         }
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         if (!response.success) {
             toast.error(response.message);
-            return; 
+            return;
         }
 
         router.push("/login");

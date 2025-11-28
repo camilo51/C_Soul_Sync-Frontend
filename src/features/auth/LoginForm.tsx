@@ -3,12 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import Form from "@/components/Auth/Form";
-import { LoginUserType } from "@/types";
+import { LoginUserType } from "../../../../types";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function LoginForm() {
 
-    const {login} = useAuthContext()
+    const { login } = useAuthContext()
 
     const defaultUser: LoginUserType = {
         email: "",
