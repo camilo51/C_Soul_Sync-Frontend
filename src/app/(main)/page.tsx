@@ -1,16 +1,5 @@
-'use client'
-import { useAuthContext } from "@/contexts/AuthContext";
-import Image from "next/image";
+import Home from "@/features/Home";
 
-export default function Home() {
-  
-
-    const {user} = useAuthContext();
-    console.log(user);
-    
-    return (
-        <div className="">
-        
-        </div>
-    );
+export default function Page() {
+  return <Home />;
 }
