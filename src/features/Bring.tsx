@@ -1,10 +1,10 @@
 'use client';
 import { useParams } from "next/navigation";
 
-export default function View() {
+export default function Bring() {
   const params = useParams();
   const name = params?.name as string;
-  
+
   const totalResults = 32;
   const itemsPerPage = 8;
   const currentPage = 1;
@@ -15,9 +15,13 @@ export default function View() {
     title: `Track ${i + 1}`,
   }));
 
+  // Capitalize first letter of name for display
+  const displayName = name ? name.charAt(0).toUpperCase() + name.slice(1) : '';
+
   return (
     <div className="p-6 bg-black min-h-screen text-yellow-400">
-      <h1 className="text-3xl font-bold mb-6">Lista de {name}</h1>
+      <h1 className="text-6xl font-extrabold mb-2 uppercase tracking-wide">{displayName}</h1>
+      <h2 className="text-2xl mb-8">Lista de canciones</h2>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {tracks.map((track) => (
@@ -39,11 +43,10 @@ export default function View() {
           {[...Array(totalPages)].map((_, i) => (
             <button
               key={i}
-              className={`px-2 py-1 border border-yellow-400 rounded transition ${
-                i + 1 === currentPage
+              className={`px-2 py-1 border border-yellow-400 rounded transition ${i + 1 === currentPage
                   ? 'bg-yellow-400 text-black'
                   : 'hover:bg-yellow-400 hover:text-black'
-              }`}
+                }`}
             >
               {i + 1}
             </button>
