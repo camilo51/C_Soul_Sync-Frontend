@@ -1,4 +1,6 @@
-export const emotions = [
+import { EmotionsType } from "@/types/emotios";
+
+export const emotions: EmotionsType[] = [
     {
         mood: "neutral",
         icon: "😐",
