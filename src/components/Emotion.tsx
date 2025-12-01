@@ -2,12 +2,37 @@
 
 import { emotions } from "@/constants/emotions";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
 export default function Emotion() {
 
     const [selected, setSelected] = useState(emotions[0])
     const [open, setOpen] = useState(false)
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        const stored = localStorage.getItem('emotion');
+        if (stored) {
+            setSelected(JSON.parse(stored));
+        }
+        setMounted(true);
+    }, []);
+    useEffect(() => {
+        if (mounted) {
+            localStorage.setItem('emotion', JSON.stringify(selected));
+        }
+    }, [selected, mounted]);
+
+    if (!mounted) {
+        return (
+            <div className="relative">
+                <div className="p-5 bg-gray-900 rounded flex justify-between items-center">
+                    <Skeleton width={100} height={20} />
+                    <ChevronDownIcon className="w-7 aspect-square" />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="relative">
