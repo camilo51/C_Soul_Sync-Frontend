@@ -5,3 +5,4 @@ export * from '@/types/context';
 export * from '@/types/card';
 export * from '@/types/item';
 export * from '@/types/spotify';
+export * from '@/types/pagination';

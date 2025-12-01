@@ -49,7 +49,7 @@ export default function Navigation() {
                 <HomeIcon className="w-7 aspect-square" /> Inicio
             </Link>
             <Link
-                href="/genders"
+                href="/genres"
                 className="flex gap-2 items-center p-2 rounded font-bold hover:bg-gray-900"
             >
                 <RectangleStackIcon className="w-7 aspect-square" /> Generos
