@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { AuthContextType, ErrorType, LoginUserType, RegisterUserType, SuccessType, UserType } from "../../../types";
+import { AuthContextType, ErrorType, LoginUserType, RegisterUserType, SuccessType, UserType } from "@/types";
 import { RegisterUser, LoginUser, LogoutUser } from "@/services/authService";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
