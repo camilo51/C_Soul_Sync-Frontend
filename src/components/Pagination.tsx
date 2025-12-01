@@ -1,5 +1,4 @@
 'use client';
-import { useParams } from "next/navigation";
 import React from "react";
 
 interface TracksProps {
@@ -8,9 +7,6 @@ interface TracksProps {
 }
 
 const TracksView: React.FC<TracksProps> = ({ totalResults, itemsPerPage = 8 }) => {
-  const params = useParams();
-  const name = params?.name as string;
-
   const currentPage = 1;
   const totalPages = Math.ceil(totalResults / itemsPerPage);
 
@@ -20,8 +16,8 @@ const TracksView: React.FC<TracksProps> = ({ totalResults, itemsPerPage = 8 }) =
   }));
 
   return (
-    <div className="p-6 bg-black min-h-screen text-yellow-400">
-      <h1 className="text-3xl font-bold mb-6">Lista de {name}</h1>
+    <>
+      <h2 className="text-2xl font-bold mb-6">Lista de canciones</h2>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {tracks.map((track) => (
@@ -45,11 +41,10 @@ const TracksView: React.FC<TracksProps> = ({ totalResults, itemsPerPage = 8 }) =
           {[...Array(totalPages)].map((_, i) => (
             <button
               key={i}
-              className={`px-2 py-1 border border-yellow-400 rounded transition ${
-                i + 1 === currentPage
+              className={`px-2 py-1 border border-yellow-400 rounded transition ${i + 1 === currentPage
                   ? 'bg-yellow-400 text-black'
                   : 'hover:bg-yellow-400 hover:text-black'
-              }`}
+                }`}
             >
               {i + 1}
             </button>
@@ -59,7 +54,7 @@ const TracksView: React.FC<TracksProps> = ({ totalResults, itemsPerPage = 8 }) =
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

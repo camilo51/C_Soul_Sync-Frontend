@@ -8,7 +8,7 @@ import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function LoginForm() {
 
-    const {login} = useAuthContext()
+    const { login } = useAuthContext()
 
     const defaultUser: LoginUserType = {
         email: "",

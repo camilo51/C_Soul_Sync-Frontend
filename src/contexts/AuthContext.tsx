@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 
     const handleAuthResponse = (response: SuccessType | ErrorType) => {
-        if(!response.success){
+        if (!response.success) {
             toast.error(response.message);
             return;
         }
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         if (!response.success) {
             toast.error(response.message);
-            return; 
+            return;
         }
 
         router.push("/login");
