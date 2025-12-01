@@ -6,30 +6,33 @@ import { oswald } from "@/lib/fonts";
 import { getStack } from "@/services/spotifyService";
 import { SpotifyResponse } from "@/types";
 import { EmotionsType } from "@/types/emotios";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-// const ALLOWED_ROUTES = ["tracks", "artists", "albums", "playlists"];
+const ALLOWED_ROUTES = ["tracks", "artists", "albums", "playlists"];
+const ITEMS_PER_PAGE = 10;
 
 export default function View() {
-    const { name, page } = useParams();
+    const { name } = useParams();
+    const searchParams = useSearchParams();
+    const page = searchParams.get('page');
     const router = useRouter();
+    const currentPage = Number(page) || 1;
     
     useEffect(() => {
         if (!page) {
             router.push("?page=1")
         }
-    }, [page])
+    }, [page, router])
 
-    
-//     useEffect(() => {
-//         if (name && !ALLOWED_ROUTES.includes(name as string)) {
-//         router.push("/");
-//     }
-// }, [name, router]);
-// if (!name || !ALLOWED_ROUTES.includes(name as string)) {
-//     return null;
-//     }
+    useEffect(() => {
+        if (name && !ALLOWED_ROUTES.includes(name as string)) {
+            router.push("/");
+        }
+    }, [name, router]);
+    if (!name || !ALLOWED_ROUTES.includes(name as string)) {
+        return null;
+    }
     
     const [data, setData] = useState<SpotifyResponse>();
     const names = {
@@ -38,8 +41,32 @@ export default function View() {
       albums: "Álbumes",
       playlists: "Reproducción"
     }
-    const total = 50;
-    const to = 10
+    const paginateItems = (items: any[]) => {
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+        return items.slice(startIndex, endIndex);
+    };
+
+    const getItems = () => {
+        if (!data) return [];
+        
+        switch(name) {
+            case 'tracks':
+                return data.data.tracks?.items || [];
+            case 'albums':
+                return data.data.albums?.items || [];
+            case 'playlists':
+                return data.data.playlists?.items.filter((item: any) => item !== null) || [];
+            case 'artists':
+                return data.data.artists?.items || [];
+            default:
+                return [];
+        }
+    };
+
+    const allItems = getItems();
+    const paginatedItems = paginateItems(allItems);
+    const total = allItems.length;
     
     useEffect(() => {
         (async () => {
@@ -54,20 +81,20 @@ export default function View() {
             <h2 className={`${oswald.className} text-4xl font-bold mb-5 uppercase`}>Lista de {names[name as keyof typeof names]}</h2>
 
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-                {name === 'tracks' && data?.data.tracks?.items.map((item) => (
-                    <Item key={item.id} image={item.album.images[0].url} name={item.name} author={item.artists[0].name} />
+                {name === 'tracks' && paginatedItems.map((item) => (
+                    <Item key={item.id} image={item?.album?.images[0]?.url} name={item.name} author={item.artists[0].name} />
                 ))}
-                {name === 'albums' && data?.data.albums?.items.map((item) => (
-                    <Item key={item.id} image={item.images[0].url} name={item.name} />
+                {name === 'albums' && paginatedItems.map((item) => (
+                    <Item key={item.id} image={item.images[0]?.url} name={item.name} />
                 ))}
-                {name === 'playlists' && data?.data.playlists?.items.filter((item: any) => item !== null).map((item) => (
+                {name === 'playlists' && paginatedItems.filter((item: any) => item !== null).map((item) => (
                     <Item key={item?.id} image={item?.images[0]?.url} name={item?.name} />
                 ))}
-                {name === 'artists' && data?.data.artists?.items.map((item) => (
-                    <Item key={item.id} image={item.images[0].url} name={item.name} />
+                {name === 'artists' && paginatedItems.map((item) => (
+                    <Item key={item.id} image={item.images[0]?.url} name={item.name} />
                 ))}
             </div>
-            <Pagination from={Number(page)} to={to} total={total} />
+            <Pagination from={currentPage} to={ITEMS_PER_PAGE} total={total} />
         </div>
     );
 }
