@@ -1,4 +1,4 @@
-import { LoginUserType, RegisterUserType } from "../../../types";
+import { LoginUserType, RegisterUserType } from "@/types";
 
 
 export const RegisterUser = async (data: RegisterUserType) => {

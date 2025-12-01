@@ -2,8 +2,7 @@
 
 import Form from "@/components/Auth/Form";
 import { useAuthContext } from "@/contexts/AuthContext";
-import { RegisterUser } from "@/services/authService";
-import { RegisterUserType, RegisterUserFormType } from "../../../../types";
+import { RegisterUserType, RegisterUserFormType } from "@/types";
 import Link from "next/link";
 import { useState } from "react";
 
