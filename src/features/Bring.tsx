@@ -14,14 +14,14 @@ export default function View() {
     const { name } = useParams();
     const router = useRouter();
     
-    useEffect(() => {
-      if (name && !ALLOWED_ROUTES.includes(name as string)) {
-        router.push("/");
-      }
-    }, [name, router]);
-    if (!name || !ALLOWED_ROUTES.includes(name as string)) {
-        return null;
-    }
+    // useEffect(() => {
+    //   if (name && !ALLOWED_ROUTES.includes(name as string)) {
+    //     router.push("/");
+    //   }
+    // }, [name, router]);
+    // if (!name || !ALLOWED_ROUTES.includes(name as string)) {
+    //     return null;
+    // }
     
     const [data, setData] = useState<SpotifyResponse>();
     const names = {
