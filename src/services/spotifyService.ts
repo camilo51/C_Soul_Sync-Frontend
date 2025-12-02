@@ -9,7 +9,7 @@ export const getAll = async ({search}: AllTypes) => {
                 'Content-Type': 'application/json',
             }
         })
-        return await response.json()
+        return await response.json();
     } catch (error) {
         throw error;
     }
@@ -22,12 +22,24 @@ export const getStack = async ({type, mood, search}: StackTypes) => {
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-            },
-            next: {
-                revalidate: 900
             }
         })
-        return await response.json()
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const getCategories = async () => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/spotify/categories`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        return await response.json();
     } catch (error) {
         throw error;
     }

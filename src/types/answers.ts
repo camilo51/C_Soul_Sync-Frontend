@@ -149,3 +149,26 @@ export type SpotifyResponse = Pick<SuccessType, 'success' | 'message'> & {
 };
 
 export type TrackType = SpotifyResponse;
+
+export type SpotifyCategory = {
+    href: string;
+    icons: SpotifyImage[];
+    id: string;
+    name: string;
+};
+
+export type SpotifyCategoriesResponse = {
+    categories: {
+        href: string;
+        limit: number;
+        next: string | null;
+        offset: number;
+        previous: string | null;
+        total: number;
+        items: SpotifyCategory[];
+    };
+};
+
+export type CategoriesResponseType = Pick<SuccessType, 'success' | 'message'> & {
+    data: SpotifyCategoriesResponse;
+};
