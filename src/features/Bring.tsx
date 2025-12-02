@@ -2,6 +2,7 @@
 
 import Item from "@/components/Item";
 import Pagination from "@/components/Pagination";
+import { useEmotion } from "@/contexts/EmotionContext";
 import { oswald } from "@/lib/fonts";
 import { getStack } from "@/services/spotifyService";
 import { SpotifyResponse } from "@/types";
@@ -18,22 +19,7 @@ export default function View() {
     const page = searchParams.get('page');
     const router = useRouter();
     const currentPage = Number(page) || 1;
-    
-    useEffect(() => {
-        if (!page) {
-            router.push("?page=1")
-        }
-    }, [page, router])
-
-    useEffect(() => {
-        if (name && !ALLOWED_ROUTES.includes(name as string)) {
-            router.push("/");
-        }
-    }, [name, router]);
-    if (!name || !ALLOWED_ROUTES.includes(name as string)) {
-        return null;
-    }
-    
+    const { emotion } = useEmotion();
     const [data, setData] = useState<SpotifyResponse>();
     const names = {
       tracks: "Canciones",
@@ -41,6 +27,21 @@ export default function View() {
       albums: "Álbumes",
       playlists: "Reproducción"
     }
+
+    useEffect(() => {
+        if (name && !ALLOWED_ROUTES.includes(name as string)) {
+            router.push("/");
+        }
+    }, [name, router]);
+    useEffect(() => {
+        if (!name || !ALLOWED_ROUTES.includes(name as string)) return;
+        (async () => {
+            const result = await getStack({ type: name as string, mood: emotion.mood });
+            setData(result);
+        })();
+    }, [emotion, name]);
+    
+
     const paginateItems = (items: any[]) => {
         const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
         const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -67,14 +68,6 @@ export default function View() {
     const allItems = getItems();
     const paginatedItems = paginateItems(allItems);
     const total = allItems.length;
-    
-    useEffect(() => {
-        (async () => {
-            const search: EmotionsType = localStorage.getItem("emotion") ? JSON.parse(localStorage.getItem("emotion") as string) : {};
-            const result = await getStack({ type: name as string, mood: search.mood });
-            setData(result);
-        })();
-    }, []);
 
     return (
         <div>

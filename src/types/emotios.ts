@@ -3,3 +3,8 @@ export type EmotionsType = {
     icon: string;
     name: string;
 } 
+
+export type EmotionsContextType = {
+    emotion: EmotionsType;
+    setEmotion: (emotion: EmotionsType) => void;
+}

@@ -1,37 +1,19 @@
 'use client'
 
 import { emotions } from "@/constants/emotions";
+import { useEmotion } from "@/contexts/EmotionContext";
+import { EmotionsType } from "@/types/emotios";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 
 export default function Emotion() {
-
-    const [selected, setSelected] = useState(emotions[0])
+    const {emotion, setEmotion} = useEmotion()
     const [open, setOpen] = useState(false)
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        const stored = localStorage.getItem('emotion');
-        if (stored) {
-            setSelected(JSON.parse(stored));
-        }
-        setMounted(true);
-    }, []);
-    useEffect(() => {
-        if (mounted) {
-            localStorage.setItem('emotion', JSON.stringify(selected));
-        }
-    }, [selected, mounted]);
 
-    if (!mounted) {
-        return (
-            <div className="relative">
-                <div className="p-5 bg-gray-900 rounded flex justify-between items-center">
-                    <Skeleton width={100} height={20} />
-                    <ChevronDownIcon className="w-7 aspect-square" />
-                </div>
-            </div>
-        );
+    const handleEmotion = (newEmotion: EmotionsType) => {
+        setEmotion(newEmotion)
+        setOpen(!open);
     }
 
     return (
@@ -41,7 +23,7 @@ export default function Emotion() {
                 className="p-5 bg-gray-900 rounded flex justify-between items-center cursor-pointer hover:bg-gray-800 transition-all duration-200"
             >
                 <span>
-                    {selected.icon} {selected.name}
+                    {emotion.icon} {emotion.name}
                 </span>
                 <ChevronDownIcon className="w-7 aspect-square" />
             </div>
@@ -53,10 +35,7 @@ export default function Emotion() {
                 {emotions.map((emotion, i) => (
                     <div
                         key={i}
-                        onClick={() => {
-                            setSelected(emotion);
-                            setOpen(!open);
-                        }}
+                        onClick={() => handleEmotion(emotion)}
                         className="cursor-pointer bg-gray-800 hover:bg-gray-700 transition-all duration-200 p-2 rounded flex justify-between items-center"
                     >
                         {emotion.icon} {emotion.name}

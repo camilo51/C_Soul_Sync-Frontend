@@ -3,13 +3,20 @@
 import { PaginationType } from "@/types";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function Pagination({ from = 1, to, total }: PaginationType) {
+export default function Pagination({ from, to, total }: PaginationType) {
 
   const router = useRouter();
   const {page} = useParams();
   const totalPages = Math.ceil(total / to);
   const currentPage = from;
+
+  useEffect(() => {
+      if (!page) {
+          router.push("?page=1")
+      }
+  }, [page, router])
 
   const handlePageChange = (page: number) => {
     router.push(`?page=${page}`);
@@ -28,7 +35,7 @@ export default function Pagination({ from = 1, to, total }: PaginationType) {
 
   return (
       <div className="flex justify-between items-center">
-        <p className="text-sm">Mostrando de {from} a {to} de {total} resultados</p>
+        <p className="text-sm">Mostrando de {from-1}1 a {from*10} de {total} resultados</p>
 
         <div className="flex gap-1">
           <button 
