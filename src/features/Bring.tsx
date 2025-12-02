@@ -2,7 +2,7 @@
 
 import Item from "@/components/Item";
 import Pagination from "@/components/Pagination";
-import { useEmotion } from "@/contexts/EmotionContext";
+import { useEmotionContext } from "@/contexts/EmotionContext";
 import { oswald } from "@/lib/fonts";
 import { getStack } from "@/services/spotifyService";
 import { SpotifyResponse } from "@/types";
@@ -19,7 +19,7 @@ export default function View() {
     const page = searchParams.get('page');
     const router = useRouter();
     const currentPage = Number(page) || 1;
-    const { emotion } = useEmotion();
+    const { emotion } = useEmotionContext();
     const [data, setData] = useState<SpotifyResponse>();
     const names = {
       tracks: "Canciones",

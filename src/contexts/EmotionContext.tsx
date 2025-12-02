@@ -7,6 +7,7 @@ import { emotions } from "@/constants/emotions";
 const EmotionContext = createContext<EmotionsContextType | undefined>(undefined);
 
 export const EmotionProvider = ({children}: {children: React.ReactNode}) => {
+    console.log('🔄 EmotionProvider render');
     const [emotion, setEmotionState] = useState<EmotionsType>(emotions[0]);
     const [mounted, setMounted] = useState(false);
 
@@ -32,7 +33,7 @@ export const EmotionProvider = ({children}: {children: React.ReactNode}) => {
     return <EmotionContext.Provider value={{emotion, setEmotion}}>{children}</EmotionContext.Provider>
 }
 
-export const useEmotion = () => {
+export const useEmotionContext = () => {
     const context = useContext(EmotionContext);
     if (!context) throw new Error('useEmotion must be used within a EmotionProvider');
     return context;

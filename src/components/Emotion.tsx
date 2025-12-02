@@ -1,14 +1,14 @@
 'use client'
 
 import { emotions } from "@/constants/emotions";
-import { useEmotion } from "@/contexts/EmotionContext";
+import { useEmotionContext } from "@/contexts/EmotionContext";
 import { EmotionsType } from "@/types/emotios";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 
 export default function Emotion() {
-    const {emotion, setEmotion} = useEmotion()
+    const {emotion, setEmotion} = useEmotionContext()
     const [open, setOpen] = useState(false)
 
     const handleEmotion = (newEmotion: EmotionsType) => {
