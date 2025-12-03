@@ -47,3 +47,50 @@ export const LogoutUser = async () => {
         throw error;
     }
 }
+
+export const UpdateUser = async (name: string) => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/update`, {
+            method: "PUT",
+            credentials: "include",
+            body: JSON.stringify({ name }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const DeleteUser = async () => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/delete`, {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const ForgotPassword = async (email: string) => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/forgot-password`, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify({ email }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+}

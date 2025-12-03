@@ -20,7 +20,7 @@ export default function MainLayout({children}: Readonly<{
                     </div>
                 </aside>
                 <main className="w-9/12 px-2 overflow-y-auto">
-                    <div className="bg-gray-950/85 w-full rounded-lg p-5">
+                    <div className="bg-gray-950/85 w-full min-h-full rounded-lg p-5">
                         {children}
                     </div>
                 </main>
