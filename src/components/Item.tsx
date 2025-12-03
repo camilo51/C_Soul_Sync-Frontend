@@ -12,7 +12,7 @@ export default function Item({image, name, author}: ItemType) {
             />
             <div className="p-1">
                 <h3 className="text-sm truncate">{name}</h3>
-                {author && <p className="text-sm text-gray-700 italic">{author}</p>}
+                {author && <p className="text-sm text-gray-700 italic truncate">{author}</p>}
             </div>
         </div>
     );

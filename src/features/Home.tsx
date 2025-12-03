@@ -1,23 +1,28 @@
 "use client";
 
 import Section from "../components/Section";
-import { useSearch } from '../contexts/SearchContext';
+import { useSearch } from "../contexts/SearchContext";
 
 export default function Home() {
-  const section = [
-    {title: 'Canciones', url: '/tracks'},
-    {title: 'Álbumes', url: '/albums'},
-    {title: 'Listas de reproducción', url: '/playlists'},
-    {title: 'Artistas', url: '/artists'},
-  ]
+  const { searchResults } = useSearch();
+
+  const sections = [
+    { title: "Canciones", url: "/tracks", key: "tracks" },
+    { title: "Álbumes", url: "/albums", key: "albums" },
+    { title: "Listas de reproducción", url: "/playlists", key: "playlists" },
+    { title: "Artistas", url: "/artists", key: "artists" },
+  ];
 
   return (
     <div className="p-6 space-y-10">
-      {section.map((item, i) => (
-        <Section key={i} title={item.title} url={item.url} />
+      {sections.map((section) => (
+        <Section
+          key={section.key}
+          title={section.title}
+          url={section.url}
+          data={searchResults}
+        />
       ))}
     </div>
   );
 }
-
-
