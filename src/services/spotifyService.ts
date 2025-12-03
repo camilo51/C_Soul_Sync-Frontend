@@ -1,8 +1,8 @@
-import { AllTypes, StackTypes } from "@/types";
+import { AllType, StackType } from "@/types";
 
-export const getAll = async ({search}: AllTypes) => {
+export const getAll = async ({mood}: AllType) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/spotify/all?search=${search}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/spotify/all?mood=${mood}`, {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -15,9 +15,9 @@ export const getAll = async ({search}: AllTypes) => {
     }
 }
 
-export const getStack = async ({type, mood, search}: StackTypes) => {
+export const getStack = async ({type, mood }: StackType) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/spotify/${type.replace(/s$/, '')}?mood=${mood}${search ? '&search='+search : ''}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/spotify/${type.replace(/s$/, '')}?mood=${mood}`, {
             method: 'GET',
             credentials: 'include',
             headers: {

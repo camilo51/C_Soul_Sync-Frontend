@@ -1,49 +1,49 @@
 "use client";
 
 import VerifiedEmail from "@/components/VerifiedEmail";
+import Section from "../components/Section";
+import { useEffect, useState } from "react";
+import { getAll } from "@/services/spotifyService";
+import { ErrorType, SpotifySearchResponse, SuccessType } from "@/types";
+import { toast } from "react-toastify";
+import { useEmotionContext } from "@/contexts/EmotionContext";
+
 
 export default function Home() {
 
+  const [data, setData] = useState<SpotifySearchResponse>();
+  const {emotion} = useEmotionContext();
+
+  const sections = [
+    { title: "Canciones", url: "/tracks", data: data?.tracks?.items},
+    { title: "Álbumes", url: "/albums", data: data?.albums?.items },
+    { title: "Listas de reproducción", url: "/playlists", data: data?.playlists?.items },
+    { title: "Artistas", url: "/artists", data: data?.artists?.items },
+  ];
+
+  useEffect(() => {
+    (async() => {
+      const response: SuccessType | ErrorType = await getAll({mood: emotion.mood});
+      if (!response.success) {
+        toast.error(response.message);
+        return;
+      }
+      setData(response.data);
+    })()
+  }, [emotion]);
   
+
   return (
-    <div className="space-y-10">
+    <div className="p-6 space-y-10">
       <VerifiedEmail />
-      <div className="w-full h-24 rounded-xl bg-gray-900/70 p-4">
-        <h2 className="text-gray-300 text-lg">Search or something here</h2>
-      </div>
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-white">Tracks</h2>
-        <a className="text-sm text-gray-400 hover:text-white cursor-pointer">
-          View all
-        </a>
-      </div>
-
-      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div
-            key={i}
-            className="bg-gray-900/70 rounded-xl h-28 hover:bg-gray-800 transition cursor-pointer"
-          />
-        ))}
-      </div>
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-white">Albums</h2>
-        <a className="text-sm text-gray-400 hover:text-white cursor-pointer">
-          View all
-        </a>
-      </div>
-
-      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div
-            key={i}
-            className="bg-gray-900/70 rounded-xl h-28 hover:bg-gray-800 transition cursor-pointer"
-          />
-        ))}
-      </div>
-
+      {sections.map((section, i) => (
+        <Section
+          key={i}
+          title={section.title}
+          url={section.url}
+          data={section.data ?? []}
+        />
+      ))}
     </div>
   );
 }
-
-

@@ -1,9 +1,8 @@
-export type AllTypes = {
-    search: string;
+export type AllType = {
+    mood: string;
 }
 
-export type StackTypes =  {
-    search?: string | null;
+export type StackType =  {
     type: string;
     mood: string;
 }
