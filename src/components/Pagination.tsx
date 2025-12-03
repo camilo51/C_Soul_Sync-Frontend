@@ -2,13 +2,14 @@
 
 import { PaginationType } from "@/types";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Pagination({ from, to, total }: PaginationType) {
 
   const router = useRouter();
-  const {page} = useParams();
+  const searchParams = useSearchParams();
+  const page = searchParams.get('page');
   const totalPages = Math.ceil(total / to);
   const currentPage = from;
 
@@ -32,7 +33,7 @@ export default function Pagination({ from, to, total }: PaginationType) {
       handlePageChange(currentPage + 1);
     }
   };
-
+  
   return (
       <div className="flex justify-between items-center">
         <p className="text-sm">Mostrando de {from-1}1 a {from*10} de {total} resultados</p>
@@ -46,7 +47,7 @@ export default function Pagination({ from, to, total }: PaginationType) {
             <ChevronLeftIcon className="w-7 aspect-square" />
           </button>
           {Array.from({length: totalPages}).map((_, i) => (
-            <button key={i} onClick={() => handlePageChange(i+1)} className="w-10 aspect-square border border-yellow-500 text-sm rounded cursor-pointer hover:bg-yellow-500 transition-all duration-150">
+            <button key={i} onClick={() => handlePageChange(i+1)} className={`w-10 aspect-square border border-yellow-500 text-sm rounded cursor-pointer hover:bg-yellow-500 transition-all duration-150 ${Number(page) === i+1 ? 'bg-yellow-400 text-black' : ''}`}>
               {i+1}
             </button>
           ))}

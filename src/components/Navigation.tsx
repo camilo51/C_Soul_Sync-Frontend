@@ -49,10 +49,10 @@ export default function Navigation() {
                 <HomeIcon className="w-7 aspect-square" /> Inicio
             </Link>
             <Link
-                href="/genres"
+                href="/categories"
                 className="flex gap-2 items-center p-2 rounded font-bold hover:bg-gray-900"
             >
-                <RectangleStackIcon className="w-7 aspect-square" /> Generos
+                <RectangleStackIcon className="w-7 aspect-square" /> Categorías
             </Link>
 
             {!user ? (
@@ -81,7 +81,7 @@ export default function Navigation() {
                         <UserIcon className="w-7 aspect-square" />
                         Perfil
                     </Link>
-                    <Link
+                    {/* <Link
                         href="/playlists"
                         className="flex gap-2 items-center p-2 rounded font-bold hover:bg-gray-900"
                     >
@@ -94,7 +94,7 @@ export default function Navigation() {
                     >
                         <HeartIcon className="w-7 aspect-square" /> Mis
                         Favoritas
-                    </Link>
+                    </Link> */}
                     <button
                         onClick={logout}
                         className="flex gap-2 items-center bg-yellow-500 p-2 text-black rounded font-bold hover:bg-yellow-400 cursor-pointer"
