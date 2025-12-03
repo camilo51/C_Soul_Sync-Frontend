@@ -49,7 +49,7 @@ export default function LoginForm() {
                     onChange={(e) => setUser({ ...user, password: e.target.value })}
                 />
             </div>
-            <Link href={"/auth/forgot-password"} className="text-sm inline-block mb-1 underline">
+            <Link href={"/forgot-password"} className="text-sm inline-block mb-1 underline">
                 Recuperar contraseña
             </Link>
             <div className="mb-5">

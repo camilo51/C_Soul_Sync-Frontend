@@ -81,20 +81,6 @@ export default function Navigation() {
                         <UserIcon className="w-7 aspect-square" />
                         Perfil
                     </Link>
-                    {/* <Link
-                        href="/playlists"
-                        className="flex gap-2 items-center p-2 rounded font-bold hover:bg-gray-900"
-                    >
-                        <ListBulletIcon className="w-7 aspect-square" /> Mis
-                        Playlists
-                    </Link>
-                    <Link
-                        href="/favorites"
-                        className="flex gap-2 items-center p-2 rounded font-bold hover:bg-gray-900"
-                    >
-                        <HeartIcon className="w-7 aspect-square" /> Mis
-                        Favoritas
-                    </Link> */}
                     <button
                         onClick={logout}
                         className="flex gap-2 items-center bg-yellow-500 p-2 text-black rounded font-bold hover:bg-yellow-400 cursor-pointer"

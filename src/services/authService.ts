@@ -1,4 +1,4 @@
-import { LoginUserType, RegisterUserType } from "@/types";
+import { LoginUserType, RegisterUserType, ResetPasswordType } from "@/types";
 
 
 export const RegisterUser = async (data: RegisterUserType) => {
@@ -85,6 +85,22 @@ export const ForgotPassword = async (email: string) => {
             method: "POST",
             credentials: "include",
             body: JSON.stringify({ email }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const ResetPassword = async ({token, password, confirmPassword}: ResetPasswordType) => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/reset-password`, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify({ token, password, confirmPassword }),
             headers: {
                 "Content-Type": "application/json"
             }

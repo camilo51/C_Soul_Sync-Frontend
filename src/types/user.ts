@@ -22,3 +22,6 @@ export type RegisterUserType = Pick<UserType, "name" | "email"> & {
     password: string;
     confirmPassword: string;
 }
+export type ResetPasswordType = Pick<RegisterUserFormType, "password" | "confirmPassword"> & {
+    token: string;
+}
