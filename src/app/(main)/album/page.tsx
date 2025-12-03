@@ -1,4 +1,4 @@
-import Album from '@/features/album'
+import Album from '@/features/Album'
 
 export default function page() {
   return <Album />
