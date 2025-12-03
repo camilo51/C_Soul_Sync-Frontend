@@ -6,3 +6,4 @@ export * from '@/types/card';
 export * from '@/types/item';
 export * from '@/types/spotify';
 export * from '@/types/pagination';
+export * from '@/types/section';

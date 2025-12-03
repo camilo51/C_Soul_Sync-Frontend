@@ -2,11 +2,13 @@ import Emotion from "@/components/Emotion";
 import Header from "@/components/Header"
 import Navigation from "@/components/Navigation";
 import Profile from "@/components/Profile";
+import { SearchProvider } from "@/contexts/SearchContext";
+
 export default function MainLayout({children}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <SearchProvider>
         <div className="flex flex-col h-screen">
             <Header />
             <div className="flex flex-1 overflow-hidden pb-2">
@@ -26,7 +28,7 @@ export default function MainLayout({children}: Readonly<{
                 </main>
             </div>
         </div>
-    </>
+    </SearchProvider>
   );
 }
 
